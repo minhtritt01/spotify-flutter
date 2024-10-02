@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:spotify/common/widgets/appbar/basic_app_bar.dart';
-import 'package:spotify/common/widgets/button/basic_app_button.dart';
+import '../../../common/widgets/appbar/basic_app_bar.dart';
+import '../../../common/widgets/button/basic_app_button.dart';
+import '../../../data/models/auth/create_user_req.dart';
+import '../../../domain/usecases/auth/singup.dart';
+import '../../../service_locator.dart';
 
 import '../../../gen/assets.gen.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({super.key});
-
+  SignUpPage({super.key});
+  final _fullName = TextEditingController();
+  final _email = TextEditingController();
+  final _pass = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +33,27 @@ class SignUpPage extends StatelessWidget {
             const Gap(20.0),
             _passField(),
             const Gap(20.0),
-            BasicAppButton(onPressed: () {}, title: 'Create account')
+            BasicAppButton(
+                onPressed: () async {
+                  var result = await sl<SignupUseCase>().call(
+                      params: CreateUserReq(
+                          fullName: _fullName.text,
+                          email: _email.text,
+                          password: _pass.text));
+                  result.fold((l) {
+                    var snackbar = SnackBar(
+                      content: Text(l),
+                      behavior: SnackBarBehavior.floating,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                  }, (r) {
+                    while (context.canPop()) {
+                      context.pop();
+                    }
+                    context.push('/');
+                  });
+                },
+                title: 'Create account')
           ],
         ),
       ),
@@ -47,24 +72,27 @@ class SignUpPage extends StatelessWidget {
   }
 
   Widget _fullNameField() {
-    return const TextField(
-        decoration: InputDecoration(
-      hintText: 'Full Name',
-    ));
+    return TextField(
+        controller: _fullName,
+        decoration: const InputDecoration(
+          hintText: 'Full Name',
+        ));
   }
 
   Widget _emailField() {
-    return const TextField(
-        decoration: InputDecoration(
-      hintText: 'Enter Email',
-    ));
+    return TextField(
+        controller: _email,
+        decoration: const InputDecoration(
+          hintText: 'Enter Email',
+        ));
   }
 
   Widget _passField() {
-    return const TextField(
-        decoration: InputDecoration(
-      hintText: 'Password',
-    ));
+    return TextField(
+        controller: _pass,
+        decoration: const InputDecoration(
+          hintText: 'Password',
+        ));
   }
 
   Widget _signinText(BuildContext context) {

@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:spotify/presentation/root/pages/root.dart';
 import '../../presentation/auth/pages/signup.dart';
 import '../../presentation/auth/pages/signup_or_signin.dart';
 import '../../presentation/choose_mode/pages/choose_mode.dart';
@@ -26,10 +27,14 @@ final router = GoRouter(initialLocation: '/splash', routes: [
   ),
   GoRoute(
     path: '/sign-up',
-    builder: (context, state) => const SignUpPage(),
+    builder: (context, state) => SignUpPage(),
   ),
   GoRoute(
     path: '/sign-in',
     builder: (context, state) => const SignInPage(),
   ),
+  GoRoute(
+    path: '/',
+    builder: (context, state) => const RootPage(),
+  )
 ]);
