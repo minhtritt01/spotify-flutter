@@ -3,11 +3,36 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:spotify/common/widgets/appbar/basic_app_bar.dart';
 import 'package:spotify/common/widgets/button/basic_app_button.dart';
+import 'package:spotify/data/models/auth/signin_user_req.dart';
+import 'package:spotify/domain/usecases/auth/signin.dart';
 
 import '../../../gen/assets.gen.dart';
+import '../../../service_locator.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
+
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  late final TextEditingController _email;
+  late final TextEditingController _pass;
+
+  @override
+  void initState() {
+    _email = TextEditingController();
+    _pass = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _pass.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +41,7 @@ class SignInPage extends StatelessWidget {
       appBar: BasicAppbar(
         title: Assets.vectors.spotifyLogo.svg(height: 40.0, width: 40.0),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
         child: Column(
           children: [
@@ -26,7 +51,25 @@ class SignInPage extends StatelessWidget {
             const Gap(20.0),
             _passField(),
             const Gap(20.0),
-            BasicAppButton(onPressed: () {}, title: 'Sign In')
+            BasicAppButton(
+                onPressed: () async {
+                  var result = await sl<SigninUseCase>().call(
+                      params: SigninUserReq(
+                          email: _email.text, password: _pass.text));
+                  result.fold((l) {
+                    var snackbar = SnackBar(
+                      content: Text(l),
+                      behavior: SnackBarBehavior.floating,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                  }, (r) {
+                    while (context.canPop()) {
+                      context.pop();
+                    }
+                    context.pushReplacement('/');
+                  });
+                },
+                title: 'Sign In')
           ],
         ),
       ),
@@ -45,17 +88,19 @@ class SignInPage extends StatelessWidget {
   }
 
   Widget _emailField() {
-    return const TextField(
-        decoration: InputDecoration(
-      hintText: 'Enter Email',
-    ));
+    return TextField(
+        controller: _email,
+        decoration: const InputDecoration(
+          hintText: 'Enter Email',
+        ));
   }
 
   Widget _passField() {
-    return const TextField(
-        decoration: InputDecoration(
-      hintText: 'Password',
-    ));
+    return TextField(
+        controller: _pass,
+        decoration: const InputDecoration(
+          hintText: 'Password',
+        ));
   }
 
   Widget _signupText(BuildContext context) {

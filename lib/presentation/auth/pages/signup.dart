@@ -9,11 +9,33 @@ import '../../../service_locator.dart';
 
 import '../../../gen/assets.gen.dart';
 
-class SignUpPage extends StatelessWidget {
-  SignUpPage({super.key});
-  final _fullName = TextEditingController();
-  final _email = TextEditingController();
-  final _pass = TextEditingController();
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  late final TextEditingController _fullName;
+  late final TextEditingController _email;
+  late final TextEditingController _pass;
+  @override
+  void initState() {
+    _fullName = TextEditingController();
+    _email = TextEditingController();
+    _pass = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _pass.dispose();
+    _fullName.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +43,7 @@ class SignUpPage extends StatelessWidget {
       appBar: BasicAppbar(
         title: Assets.vectors.spotifyLogo.svg(height: 40.0, width: 40.0),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
         child: Column(
           children: [
@@ -50,7 +72,7 @@ class SignUpPage extends StatelessWidget {
                     while (context.canPop()) {
                       context.pop();
                     }
-                    context.push('/');
+                    context.pushReplacement('/');
                   });
                 },
                 title: 'Create account')
