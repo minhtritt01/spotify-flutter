@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import '../../../../domain/entities/song/song.dart';
-import 'song.dart';
+import '../../../domain/entities/song/song.dart';
+import 'song_item.dart';
 
 class SongList extends StatelessWidget {
   const SongList({super.key, required this.songs});
@@ -16,7 +16,7 @@ class SongList extends StatelessWidget {
         return const Gap(14.0);
       },
       itemBuilder: (context, index) {
-        return Song(
+        return SongItem(
           song: songs[index],
         );
       },

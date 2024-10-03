@@ -4,10 +4,10 @@ import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/core/configs/constants/app_urls.dart';
 import 'package:spotify/core/configs/theme/app_colors.dart';
 
-import '../../../../domain/entities/song/song.dart';
+import '../../../domain/entities/song/song.dart';
 
-class Song extends StatelessWidget {
-  const Song({super.key, required this.song});
+class SongItem extends StatelessWidget {
+  const SongItem({super.key, required this.song});
   final SongEntity song;
   @override
   Widget build(BuildContext context) {

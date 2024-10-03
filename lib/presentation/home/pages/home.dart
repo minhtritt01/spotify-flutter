@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/core/configs/theme/app_colors.dart';
-import 'package:spotify/presentation/home/pages/widgets/new_songs.dart';
+import 'package:spotify/presentation/home/widgets/new_songs_component.dart';
+import 'package:spotify/presentation/home/widgets/play_list_component.dart';
 import '../../../common/widgets/appbar/basic_app_bar.dart';
 import '../../../gen/assets.gen.dart';
 
@@ -43,12 +44,13 @@ class _HomePageState extends State<HomePage>
               height: 260.0,
               margin: const EdgeInsets.symmetric(horizontal: 8.0),
               child: TabBarView(controller: _tabController, children: [
-                const NewSongs(),
+                const NewsSongsComponent(),
                 Container(),
                 Container(),
                 Container()
               ]),
-            )
+            ),
+            const PlayListComponent()
           ],
         ),
       ),

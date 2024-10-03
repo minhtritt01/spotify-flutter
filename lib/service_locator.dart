@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import './domain/usecases/song/get_play_list.dart';
 import './domain/usecases/song/get_new_songs.dart';
 import './data/repository/song/song_repository_impl.dart';
 import '../domain/usecases/auth/signin.dart';
@@ -23,4 +24,5 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<SongFirebaseService>(SongFirebaseServiceImpl());
   sl.registerSingleton<SongRepository>(SongRepositoryImpl());
   sl.registerSingleton<GetNewsSongsUseCase>(GetNewsSongsUseCase());
+  sl.registerSingleton<GetPlayListUseCase>(GetPlayListUseCase());
 }

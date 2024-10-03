@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:spotify/presentation/home/pages/cubit/news_songs_cubit.dart';
-import 'package:spotify/presentation/home/pages/widgets/song_list.dart';
+import 'package:spotify/presentation/home/cubit/news_songs_cubit.dart';
+import 'package:spotify/presentation/home/widgets/song_list.dart';
 
-class NewSongs extends StatelessWidget {
-  const NewSongs({super.key});
+class NewsSongsComponent extends StatelessWidget {
+  const NewsSongsComponent({super.key});
 
   @override
   Widget build(BuildContext context) {
