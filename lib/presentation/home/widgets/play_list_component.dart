@@ -29,7 +29,7 @@ class PlayListComponent extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Playlist',
                         style: TextStyle(
                             fontSize: 16.0, fontWeight: FontWeight.bold),
@@ -37,7 +37,7 @@ class PlayListComponent extends StatelessWidget {
                       Text('See More',
                           style: TextStyle(
                               color: context.isDarkMode
-                                  ? Color(0xffc6c6c6)
+                                  ? const Color(0xffc6c6c6)
                                   : Colors.black,
                               fontSize: 12.0,
                               fontWeight: FontWeight.w400))
