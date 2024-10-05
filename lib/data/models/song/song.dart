@@ -4,11 +4,14 @@ import 'package:spotify/domain/entities/song/song.dart';
 class SongModel {
   String? title;
   String? artist;
+  String? songId;
   Timestamp? releaseDate;
   num? duration;
+  bool? isFavorite;
 
   SongModel(
       {required this.title,
+      required this.isFavorite,
       required this.artist,
       required this.releaseDate,
       required this.duration});
@@ -23,10 +26,12 @@ class SongModel {
 extension SongModelX on SongModel {
   SongEntity toEntity() {
     return SongEntity(
+      isFavorite: isFavorite!,
       title: title!,
       artist: artist!,
       releaseDate: releaseDate!,
       duration: duration!,
+      songId: songId!,
     );
   }
 }

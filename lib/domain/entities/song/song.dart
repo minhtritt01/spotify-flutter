@@ -5,9 +5,13 @@ class SongEntity {
   final String artist;
   final Timestamp releaseDate;
   final num duration;
+  final bool isFavorite;
+  final String songId;
 
   SongEntity(
       {required this.title,
+      required this.songId,
+      required this.isFavorite,
       required this.artist,
       required this.releaseDate,
       required this.duration});

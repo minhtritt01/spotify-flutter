@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:spotify/common/helpers/is_dark_mode.dart';
+import 'package:spotify/common/widgets/favorite_button/widgets/favorite_button.dart';
 
 import 'package:spotify/core/configs/theme/app_colors.dart';
 
@@ -58,12 +59,7 @@ class PlayListItem extends StatelessWidget {
             children: [
               Text(song.duration.toString().replaceAll('.', ':')),
               const Gap(20.0),
-              IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.favorite_outline_outlined,
-                    color: AppColors.darkGrey,
-                  ))
+              FavoriteButton(song: song)
             ],
           )
         ],
