@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/core/configs/theme/app_colors.dart';
 import 'package:spotify/presentation/home/widgets/new_songs_component.dart';
@@ -28,6 +29,9 @@ class _HomePageState extends State<HomePage>
       appBar: BasicAppbar(
         hideBack: true,
         title: Assets.vectors.spotifyLogo.svg(height: 40.0, width: 40.0),
+        action: IconButton(
+            onPressed: () => context.goNamed('profile'),
+            icon: const Icon(Icons.person)),
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:spotify/domain/entities/song/song.dart';
 import 'package:spotify/presentation/home/pages/home.dart';
+import 'package:spotify/presentation/profile/pages/profile.dart';
 import 'package:spotify/presentation/song_player/pages/song_player.dart';
 import '../../presentation/auth/pages/signup.dart';
 import '../../presentation/auth/pages/signup_or_signin.dart';
@@ -44,6 +45,10 @@ final router =
         SongEntity songEntity = state.extra as SongEntity;
         return SongPlayerPage(songEntity: songEntity);
       },
-    )
+    ),
+    GoRoute(
+        path: 'profile',
+        name: 'profile',
+        builder: (context, state) => const ProfilePage())
   ])
 ]);
