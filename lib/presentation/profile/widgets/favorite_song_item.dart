@@ -49,6 +49,7 @@ class FavoriteSongItem extends StatelessWidget {
             Text(song.duration.toString().replaceAll('.', ':')),
             const Gap(20.0),
             FavoriteButton(
+              key: UniqueKey(),
               song: song,
               function: () {
                 context.read<FavoriteSongsCubit>().removeFavoriteSong(index);
