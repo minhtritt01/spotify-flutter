@@ -24,7 +24,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await initializeDependencies();
-  runApp(DevicePreview(builder: (_) => const MyApp()));
+  runApp(DevicePreview(enabled: kIsWeb, builder: (_) => const MyApp()));
 }
 
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
