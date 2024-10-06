@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
@@ -6,12 +7,14 @@ import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/common/widgets/favorite_button/widgets/favorite_button.dart';
 
 import 'package:spotify/core/configs/theme/app_colors.dart';
+import 'package:spotify/presentation/home/cubit/play_list_cubit.dart';
 
 import '../../../domain/entities/song/song.dart';
 
 class PlayListItem extends StatelessWidget {
-  const PlayListItem({super.key, required this.song});
+  const PlayListItem({super.key, required this.song, required this.index});
   final SongEntity song;
+  final int index;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -59,7 +62,11 @@ class PlayListItem extends StatelessWidget {
             children: [
               Text(song.duration.toString().replaceAll('.', ':')),
               const Gap(20.0),
-              FavoriteButton(song: song)
+              FavoriteButton(
+                song: song,
+                function: () =>
+                    context.read<PlayListCubit>().refreshFavoriteSongAt(index),
+              )
             ],
           )
         ],

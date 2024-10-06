@@ -16,6 +16,7 @@ class PlayList extends StatelessWidget {
       },
       itemBuilder: (context, index) {
         return PlayListItem(
+          index: index,
           song: songs[index],
         );
       },

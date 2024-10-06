@@ -5,7 +5,7 @@ class SongEntity {
   final String artist;
   final Timestamp releaseDate;
   final num duration;
-  final bool isFavorite;
+  bool isFavorite;
   final String songId;
 
   SongEntity(
