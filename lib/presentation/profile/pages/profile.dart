@@ -19,7 +19,14 @@ class ProfilePage extends StatelessWidget {
         title: const Text('Profile'),
       ),
       body: Column(
-        children: [_profileInfo(context), const Gap(10.0), _favoriteSongs()],
+        children: [
+          _profileInfo(context),
+          const Gap(10.0),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: _favoriteSongs(),
+          )
+        ],
       ),
     );
   }
