@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/common/widgets/appbar/basic_app_bar.dart';
+import 'package:spotify/presentation/profile/cubit/favorite_songs_cubit.dart';
 import 'package:spotify/presentation/profile/cubit/profile_cubit.dart';
+import 'package:spotify/presentation/profile/widgets/favorite_song_list.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -17,7 +19,7 @@ class ProfilePage extends StatelessWidget {
         title: const Text('Profile'),
       ),
       body: Column(
-        children: [_profileInfo(context)],
+        children: [_profileInfo(context), const Gap(10.0), _favoriteSongs()],
       ),
     );
   }
@@ -71,6 +73,40 @@ class ProfilePage extends StatelessWidget {
             return Container();
           },
         ),
+      ),
+    );
+  }
+
+  Widget _favoriteSongs() {
+    return BlocProvider(
+      create: (context) => FavoriteSongsCubit()..getUserFavoriteSongs(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Favorite Songs',
+            style: TextStyle(fontSize: 20),
+          ),
+          const Gap(20.0),
+          BlocBuilder<FavoriteSongsCubit, FavoriteSongsState>(
+            builder: (context, state) {
+              if (state is FavoriteSongsLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is FavoriteSongsLoadFailure) {
+                const Center(
+                  child: Text('An error occurred'),
+                );
+              }
+              if (state is FavoriteSongsLoaded) {
+                return FavoriteSongList(songs: state.songs);
+              }
+              return Container();
+            },
+          ),
+        ],
       ),
     );
   }

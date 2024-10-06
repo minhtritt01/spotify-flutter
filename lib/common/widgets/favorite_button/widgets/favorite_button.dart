@@ -6,8 +6,9 @@ import 'package:spotify/core/configs/theme/app_colors.dart';
 import '../../../../domain/entities/song/song.dart';
 
 class FavoriteButton extends StatelessWidget {
-  const FavoriteButton({super.key, required this.song});
+  const FavoriteButton({super.key, required this.song, this.function});
   final SongEntity song;
+  final void Function()? function;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -17,9 +18,14 @@ class FavoriteButton extends StatelessWidget {
           if (state is FavoriteButtonInitial) {
             return IconButton(
               iconSize: 25.0,
-              onPressed: () => context
-                  .read<FavoriteButtonCubit>()
-                  .favoriteButtonUpdated(song.songId),
+              onPressed: () async {
+                context
+                    .read<FavoriteButtonCubit>()
+                    .favoriteButtonUpdated(song.songId);
+                if (function != null) {
+                  function?.call();
+                }
+              },
               icon: Icon(song.isFavorite
                   ? Icons.favorite
                   : Icons.favorite_outline_outlined),
@@ -29,9 +35,11 @@ class FavoriteButton extends StatelessWidget {
           if (state is FavoriteButtonUpdated) {
             return IconButton(
               iconSize: 25.0,
-              onPressed: () => context
-                  .read<FavoriteButtonCubit>()
-                  .favoriteButtonUpdated(song.songId),
+              onPressed: () {
+                context
+                    .read<FavoriteButtonCubit>()
+                    .favoriteButtonUpdated(song.songId);
+              },
               icon: Icon(state.isFavorite
                   ? Icons.favorite
                   : Icons.favorite_outline_outlined),

@@ -1,0 +1,12 @@
+import 'package:dartz/dartz.dart';
+
+import '../../../core/usecase/usecase.dart';
+import '../../../service_locator.dart';
+import '../../repository/song/song.dart';
+
+class GetUserFavoriteSongsUseCase implements UseCase<Either, dynamic> {
+  @override
+  Future<Either> call({params}) async {
+    return await sl<SongRepository>().getUserFavoriteSongs();
+  }
+}

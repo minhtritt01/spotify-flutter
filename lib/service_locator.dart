@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import './domain/usecases/song/get_user_favorite_songs.dart';
 import './domain/usecases/auth/get_user.dart';
 import './domain/usecases/song/add_or_remove_favorite_song.dart';
 import './domain/usecases/song/is_favorite_song.dart';
@@ -32,4 +33,6 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<AddOrRemoveFavoriteSongUseCase>(
       AddOrRemoveFavoriteSongUseCase());
   sl.registerSingleton<IsFavoriteSongUseCase>(IsFavoriteSongUseCase());
+  sl.registerSingleton<GetUserFavoriteSongsUseCase>(
+      GetUserFavoriteSongsUseCase());
 }
