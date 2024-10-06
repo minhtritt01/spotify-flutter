@@ -39,6 +39,9 @@ class FavoriteButton extends StatelessWidget {
                 context
                     .read<FavoriteButtonCubit>()
                     .favoriteButtonUpdated(song.songId);
+                if (function != null) {
+                  function?.call();
+                }
               },
               icon: Icon(state.isFavorite
                   ? Icons.favorite
