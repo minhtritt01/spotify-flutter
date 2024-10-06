@@ -7,6 +7,7 @@ import 'package:spotify/presentation/home/widgets/play_list_component.dart';
 import 'package:spotify/presentation/home/widgets/video_songs_component.dart';
 import '../../../common/widgets/appbar/basic_app_bar.dart';
 import '../../../gen/assets.gen.dart';
+import '../widgets/artist_songs_component.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage>
               child: TabBarView(controller: _tabController, children: [
                 const NewsSongsComponent(),
                 const VideoSongsComponent(),
-                Container(),
+                const ArtistSongsComponent(),
                 Container()
               ]),
             ),

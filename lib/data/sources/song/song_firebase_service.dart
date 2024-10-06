@@ -11,6 +11,7 @@ abstract class SongFirebaseService {
   Future<Either> getNewsSongs();
   Future<Either> getPlayList();
   Future<Either> getVideoSongs();
+  Future<Either> getArtistSongs();
   Future<Either> addOrRemoveFavoriteSong(String songId);
   Future<bool> isFavoriteSong(String songId);
   Future<Either> getUserFavoriteSongs();
@@ -157,6 +158,30 @@ class SongFirebaseServiceImpl implements SongFirebaseService {
           .collection('songs')
           .orderBy('title', descending: true)
           .limit(3)
+          .get();
+      for (var doc in data.docs) {
+        bool isFavorite =
+            await sl<IsFavoriteSongUseCase>().call(params: doc.reference.id);
+        var songModel = SongModel.fromJson(doc.data());
+        songModel.isFavorite = isFavorite;
+        songModel.songId = doc.reference.id;
+        var entity = songModel.toEntity();
+        songs.add(entity);
+      }
+      return Right(songs);
+    } catch (e) {
+      return const Left('An error occurred, please try again later');
+    }
+  }
+
+  @override
+  Future<Either> getArtistSongs() async {
+    try {
+      List<SongEntity> songs = [];
+      var data = await FirebaseFirestore.instance
+          .collection('songs')
+          .orderBy('artist', descending: true)
+          .limit(4)
           .get();
       for (var doc in data.docs) {
         bool isFavorite =

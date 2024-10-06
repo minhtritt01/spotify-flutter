@@ -34,4 +34,9 @@ class SongRepositoryImpl implements SongRepository {
   Future<Either> getVideoSongs() async {
     return await sl<SongFirebaseService>().getVideoSongs();
   }
+
+  @override
+  Future<Either> getArtistSongs() async {
+    return await sl<SongFirebaseService>().getArtistSongs();
+  }
 }

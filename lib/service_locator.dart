@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:spotify/domain/usecases/song/get_artist_songs.dart';
 import 'package:spotify/domain/usecases/song/get_video_songs.dart';
 import './domain/usecases/song/get_user_favorite_songs.dart';
 import './domain/usecases/auth/get_user.dart';
@@ -30,6 +31,8 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<SongFirebaseService>(SongFirebaseServiceImpl());
   sl.registerSingleton<SongRepository>(SongRepositoryImpl());
   sl.registerSingleton<GetNewsSongsUseCase>(GetNewsSongsUseCase());
+
+  sl.registerSingleton<GetArtistSongsUseCase>(GetArtistSongsUseCase());
   sl.registerSingleton<GetVideoSongsUseCase>(GetVideoSongsUseCase());
   sl.registerSingleton<GetPlayListUseCase>(GetPlayListUseCase());
   sl.registerSingleton<AddOrRemoveFavoriteSongUseCase>(
