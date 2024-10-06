@@ -4,6 +4,7 @@ import 'package:spotify/common/helpers/is_dark_mode.dart';
 import 'package:spotify/core/configs/theme/app_colors.dart';
 import 'package:spotify/presentation/home/widgets/new_songs_component.dart';
 import 'package:spotify/presentation/home/widgets/play_list_component.dart';
+import 'package:spotify/presentation/home/widgets/video_songs_component.dart';
 import '../../../common/widgets/appbar/basic_app_bar.dart';
 import '../../../gen/assets.gen.dart';
 
@@ -49,7 +50,7 @@ class _HomePageState extends State<HomePage>
               margin: const EdgeInsets.symmetric(horizontal: 8.0),
               child: TabBarView(controller: _tabController, children: [
                 const NewsSongsComponent(),
-                Container(),
+                const VideoSongsComponent(),
                 Container(),
                 Container()
               ]),
